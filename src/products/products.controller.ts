@@ -1,4 +1,4 @@
-import { Controller, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, ParseIntPipe } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -41,8 +41,15 @@ export class ProductsController {
 
   //@Delete(':id')
   @MessagePattern({ cmd: 'delete_product' })
-  remove(@Param('id') id: string) {
+  remove(@Payload('id') id: string) {
     // con el "+" el id tipo string que se le pasa al metodo se parsea a int
     return this.productsService.remove(+id);
+  }
+
+  //@Delete(':id')
+  @MessagePattern({ cmd: 'validate_products_ids' })
+  validateProductByIds(@Payload() ids: Array<number>) {
+    console.log('🚀 ~ ProductsController ~ validateProductByIds ~ ids:', ids);
+    return this.productsService.validateProductsByIds(ids);
   }
 }
