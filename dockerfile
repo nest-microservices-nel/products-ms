@@ -18,7 +18,7 @@ ENV DATABASE_URL=file:./dev.db
 RUN npx prisma migrate dev
 RUN npx prisma generate
 
-EXPOSE 3001
+EXPOSE 3000
 
 # se pueden definir variables de entorno en el dockerfile y tambien en el docker-compose.yml 
 # ENV PORT=3000
